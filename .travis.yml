@@ -1,15 +1,9 @@
-matrix:
-  include:
-    - os: linux
-      sudo: required
-      language: python
-      env: DOCKER_FILE="Dockerfile.py2.jessie"
-    - os: linux
-      sudo: required
-      env: DOCKER_FILE="Dockerfile.py3.jessie"
-
-services:
-  - docker
+sudo: required
+services: docker
+language: generic
+env:
+  - DOCKER_FILE="Dockerfile.py2.jessie"
+  - DOCKER_FILE="Dockerfile.py3.jessie"
 
 before_install:
   - docker build -t myimage -f "$DOCKER_FILE" .
