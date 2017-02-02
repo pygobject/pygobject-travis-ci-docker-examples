@@ -1,4 +1,4 @@
-FROM ubuntu:yakkety
+FROM debian:stretch
 
 ENV LANG C.UTF-8
 
