@@ -1,0 +1,18 @@
+FROM fedora:25
+
+ENV LANG C.utf8
+
+RUN dnf -y install \
+    gtk3 \
+    pyflakes \
+    pygobject3 \
+    python2-pytest \
+    python-gobject \
+    python-pep8 \
+    which \
+    xorg-x11-server-Xvfb
+
+COPY . /app
+WORKDIR /app
+
+CMD xvfb-run -a python -m pytest test.py && python -m pep8 --ignore=E402 test.py && python -m pyflakes test.py

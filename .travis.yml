@@ -2,8 +2,13 @@ sudo: required
 services: docker
 language: generic
 env:
-  - DOCKER_FILE="Dockerfile.py2.jessie"
-  - DOCKER_FILE="Dockerfile.py3.jessie"
+  - DOCKER_FILE="Dockerfile.fedora25.py2"
+  - DOCKER_FILE="Dockerfile.fedora25.py3"
+  - DOCKER_FILE="Dockerfile.jessie.py2"
+  - DOCKER_FILE="Dockerfile.jessie.py3"
+  - DOCKER_FILE="Dockerfile.yakkety.py2"
+  - DOCKER_FILE="Dockerfile.yakkety.py3"
+
 
 before_install:
   - docker build -t myimage -f "$DOCKER_FILE" .

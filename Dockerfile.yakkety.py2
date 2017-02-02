@@ -1,9 +1,11 @@
-FROM debian:jessie
+FROM ubuntu:yakkety
+
+ENV LANG C.UTF-8
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
     gir1.2-gtk-3.0 \
-    pep8 \
-    pyflakes \
+    python-pep8 \
+    python-pyflakes \
     python-gi \
     python-gi-cairo \
     python-pytest \
@@ -13,4 +15,4 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 COPY . /app
 WORKDIR /app
 
-CMD xvfb-run -a py.test test.py && pep8 test.py && pyflakes test.py
+CMD xvfb-run -a python -m pytest test.py && python -m pep8 --ignore=E402 test.py && python -m pyflakes test.py
