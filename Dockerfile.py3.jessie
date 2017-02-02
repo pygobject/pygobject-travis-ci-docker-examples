@@ -1,0 +1,16 @@
+FROM debian:jessie-backports
+
+RUN apt-get update && apt-get install --no-install-recommends -y \
+    gir1.2-gtk-3.0 \
+    pep8 \
+    pyflakes3 \
+    python3-gi \
+    python3-gi-cairo \
+    python3-pytest \
+    xauth \
+    xvfb
+
+COPY . /app
+WORKDIR /app
+
+CMD xvfb-run -a py.test-3 test.py && pep8 test.py && pyflakes3 test.py

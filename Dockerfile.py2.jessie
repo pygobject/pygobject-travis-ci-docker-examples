@@ -1,0 +1,16 @@
+FROM debian:jessie
+
+RUN apt-get update && apt-get install --no-install-recommends -y \
+    gir1.2-gtk-3.0 \
+    pep8 \
+    pyflakes \
+    python-gi \
+    python-gi-cairo \
+    python-pytest \
+    xauth \
+    xvfb
+
+COPY . /app
+WORKDIR /app
+
+CMD xvfb-run -a py.test test.py && pep8 test.py && pyflakes test.py

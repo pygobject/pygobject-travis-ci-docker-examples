@@ -1,0 +1,12 @@
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker build -t py2.jessie -f Dockerfile.py2.jessie .
+  - docker build -t py3.jessie -f Dockerfile.py3.jessie .
+
+script:
+  - docker run py2.jessie
+  - docker run py3.jessie
