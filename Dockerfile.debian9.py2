@@ -14,5 +14,3 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 
 COPY . /app
 WORKDIR /app
-
-CMD xvfb-run -a python -m pytest test.py && python -m pep8 --ignore=E402 test.py && python -m pyflakes test.py

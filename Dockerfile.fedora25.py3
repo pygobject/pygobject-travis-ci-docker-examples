@@ -14,5 +14,3 @@ RUN dnf -y install \
 
 COPY . /app
 WORKDIR /app
-
-CMD xvfb-run -a python3 -m pytest test.py && python3 -m pep8 --ignore=E402 test.py && python3 -m pyflakes test.py
