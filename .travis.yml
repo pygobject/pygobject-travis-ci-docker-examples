@@ -8,6 +8,8 @@ env:
   - DOCKER_FILE="Dockerfile.debian9.py3" PYTHON="python3"
   - DOCKER_FILE="Dockerfile.fedora25.py2" PYTHON="python"
   - DOCKER_FILE="Dockerfile.fedora25.py3" PYTHON="python3"
+  - DOCKER_FILE="Dockerfile.ubuntu14.04.py2" PYTHON="python"
+  - DOCKER_FILE="Dockerfile.ubuntu14.04.py3" PYTHON="python3"
   - DOCKER_FILE="Dockerfile.ubuntu16.04.py2" PYTHON="python"
   - DOCKER_FILE="Dockerfile.ubuntu16.04.py3" PYTHON="python3"
   - DOCKER_FILE="Dockerfile.ubuntu16.10.py2" PYTHON="python"
