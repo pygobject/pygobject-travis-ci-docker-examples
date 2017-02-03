@@ -11,6 +11,3 @@ RUN dnf -y install \
     python3-pep8 \
     which \
     xorg-x11-server-Xvfb
-
-COPY . /app
-WORKDIR /app
