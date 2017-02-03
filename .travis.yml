@@ -17,7 +17,7 @@ before_install:
   - docker build -t myimage -f "$DOCKER_FILE" .
 
 before_script:
-  - docker run --tty --detach myimage > container_id
+  - docker run --tty --detach myimage bash > container_id
 
 script:
   - docker exec "$(cat container_id)" xvfb-run -a "$PYTHON" -m pytest test.py
