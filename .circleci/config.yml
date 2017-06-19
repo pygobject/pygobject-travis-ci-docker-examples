@@ -1,0 +1,93 @@
+defaults: &defaults
+  working_directory: ~/workdir
+  machine: true
+  steps:
+    - checkout
+    - run: docker info
+    - run: docker build -t myimage -f "$DOCKER_FILE" .
+    - run: docker run --volume "$(pwd):/app" --workdir "/app" --tty --detach myimage bash > container_id
+    - run: docker exec "$(cat container_id)" xvfb-run -a "$PYTHON" -m pytest test.py
+    - run: docker exec "$(cat container_id)" "$PYTHON" -m pep8 --ignore=E402 test.py
+    - run: docker exec "$(cat container_id)" "$PYTHON" -m pyflakes test.py
+    - run: docker stop "$(cat container_id)"
+
+version: 2
+jobs:
+  job.debian8.py2:
+    environment:
+      - PYTHON: "python"
+      - DOCKER_FILE: "Dockerfile.debian8.py2"
+    <<: *defaults
+  job.debian8.py3:
+    environment:
+      - PYTHON: "python3"
+      - DOCKER_FILE: "Dockerfile.debian8.py3"
+    <<: *defaults
+  job.debian9.py2:
+    environment:
+      - PYTHON: "python"
+      - DOCKER_FILE: "Dockerfile.debian9.py2"
+    <<: *defaults
+  job.debian9.py3:
+    environment:
+      - PYTHON: "python3"
+      - DOCKER_FILE: "Dockerfile.debian9.py3"
+    <<: *defaults
+  job.fedora25.py2:
+    environment:
+      - PYTHON: "python"
+      - DOCKER_FILE: "Dockerfile.fedora25.py2"
+    <<: *defaults
+  job.fedora25.py3:
+    environment:
+      - PYTHON: "python3"
+      - DOCKER_FILE: "Dockerfile.fedora25.py3"
+    <<: *defaults
+  job.ubuntu14.04.py2:
+    environment:
+      - PYTHON: "python"
+      - DOCKER_FILE: "Dockerfile.ubuntu14.04.py2"
+    <<: *defaults
+  job.ubuntu14.04.py3:
+    environment:
+      - PYTHON: "python3"
+      - DOCKER_FILE: "Dockerfile.ubuntu14.04.py3"
+    <<: *defaults
+  job.ubuntu16.04.py2:
+    environment:
+      - PYTHON: "python"
+      - DOCKER_FILE: "Dockerfile.ubuntu16.04.py2"
+    <<: *defaults
+  job.ubuntu16.04.py3:
+    environment:
+      - PYTHON: "python3"
+      - DOCKER_FILE: "Dockerfile.ubuntu16.04.py3"
+    <<: *defaults
+  job.ubuntu16.10.py2:
+    environment:
+      - PYTHON: "python"
+      - DOCKER_FILE: "Dockerfile.ubuntu16.10.py2"
+    <<: *defaults
+  job.ubuntu16.10.py3:
+    environment:
+      - PYTHON: "python3"
+      - DOCKER_FILE: "Dockerfile.ubuntu16.10.py3"
+    <<: *defaults
+
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - job.debian8.py2
+      - job.debian8.py3
+      - job.debian9.py2
+      - job.debian9.py3
+      - job.fedora25.py2
+      - job.fedora25.py3
+      - job.ubuntu14.04.py2
+      - job.ubuntu14.04.py3
+      - job.ubuntu16.04.py2
+      - job.ubuntu16.04.py3
+      - job.ubuntu16.10.py2
+      - job.ubuntu16.10.py3
